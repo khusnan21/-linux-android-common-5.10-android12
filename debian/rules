@@ -28,7 +28,9 @@ debian/control:
 override_dh_auto_install: kernel_snippet_install out/KERNEL_OBJ/initramfs.lz4.img out/KERNEL_OBJ/recovery-initramfs.lz4.img
 	# Create package contents for lz4 variant
 	cp -Rav $(CURDIR)/debian/linux-bootimage-$(KERNEL_RELEASE) $(CURDIR)/debian/linux-bootimage-$(KERNEL_RELEASE)-lz4
+ifeq ($(FLASH_ENABLED), 1)
 	cp -a $(CURDIR)/debian/linux-bootimage-$(KERNEL_RELEASE).postinst $(CURDIR)/debian/linux-bootimage-$(KERNEL_RELEASE)-lz4.postinst
+endif
 
 	# Replace contents
 	cp -v $(KERNEL_OUT)/initramfs.lz4.img $(CURDIR)/debian/linux-bootimage-$(KERNEL_RELEASE)-lz4/boot/boot.img-$(KERNEL_RELEASE)
