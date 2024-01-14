@@ -25,13 +25,17 @@ debian/control:
 			$${file} >> $(CURDIR)/debian/control ; \
 	done
 
-override_dh_auto_install: kernel_snippet_install out/KERNEL_OBJ/initramfs.lz4.img out/KERNEL_OBJ/recovery-initramfs.lz4.img
-	# Create package contents for lz4 variant
+override_dh_auto_install: kernel_snippet_install out/KERNEL_OBJ/boot-gz.img out/KERNEL_OBJ/boot-lz4.img out/KERNEL_OBJ/boot-recovery-gz.img out/KERNEL_OBJ/boot-recovery-lz4.img
+	# Create package contents for other variants
+	cp -Rav $(CURDIR)/debian/linux-bootimage-$(KERNEL_RELEASE) $(CURDIR)/debian/linux-bootimage-$(KERNEL_RELEASE)-gzip
 	cp -Rav $(CURDIR)/debian/linux-bootimage-$(KERNEL_RELEASE) $(CURDIR)/debian/linux-bootimage-$(KERNEL_RELEASE)-lz4
 ifeq ($(FLASH_ENABLED), 1)
+	cp -a $(CURDIR)/debian/linux-bootimage-$(KERNEL_RELEASE).postinst $(CURDIR)/debian/linux-bootimage-$(KERNEL_RELEASE)-gzip.postinst
 	cp -a $(CURDIR)/debian/linux-bootimage-$(KERNEL_RELEASE).postinst $(CURDIR)/debian/linux-bootimage-$(KERNEL_RELEASE)-lz4.postinst
 endif
 
 	# Replace contents
-	cp -v $(KERNEL_OUT)/initramfs.lz4.img $(CURDIR)/debian/linux-bootimage-$(KERNEL_RELEASE)-lz4/boot/boot.img-$(KERNEL_RELEASE)
-	cp -v $(KERNEL_OUT)/recovery-initramfs.lz4.img $(CURDIR)/debian/linux-bootimage-$(KERNEL_RELEASE)-lz4/boot/recovery.img-$(KERNEL_RELEASE)
+	cp -v $(KERNEL_OUT)/boot-gz.img $(CURDIR)/debian/linux-bootimage-$(KERNEL_RELEASE)-gzip/boot/boot.img-$(KERNEL_RELEASE)
+	cp -v $(KERNEL_OUT)/boot-lz4.img $(CURDIR)/debian/linux-bootimage-$(KERNEL_RELEASE)-lz4/boot/boot.img-$(KERNEL_RELEASE)
+	cp -v $(KERNEL_OUT)/boot-recovery-gz.img $(CURDIR)/debian/linux-bootimage-$(KERNEL_RELEASE)-gzip/boot/recovery.img-$(KERNEL_RELEASE)
+	cp -v $(KERNEL_OUT)/boot-recovery-lz4.img $(CURDIR)/debian/linux-bootimage-$(KERNEL_RELEASE)-lz4/boot/recovery.img-$(KERNEL_RELEASE)
