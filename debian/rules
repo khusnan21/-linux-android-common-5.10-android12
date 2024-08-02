@@ -25,6 +25,9 @@ debian/control:
 			$${file} >> $(CURDIR)/debian/control ; \
 	done
 
+execute_before_dh_auto_build:
+	lz4 -d /usr/lib/aarch64-linux-gnu/halium-generic-initramfs/initrd.img-halium-generic.lz4 $(KERNEL_SOURCES)/droidian-initramfs.cpio
+
 override_dh_auto_install: kernel_snippet_install out/KERNEL_OBJ/boot-gz.img out/KERNEL_OBJ/boot-lz4.img out/KERNEL_OBJ/boot-recovery-gz.img out/KERNEL_OBJ/boot-recovery-lz4.img
 	# Create package contents for other variants
 	cp -Rav $(CURDIR)/debian/linux-bootimage-$(KERNEL_RELEASE) $(CURDIR)/debian/linux-bootimage-$(KERNEL_RELEASE)-gzip
