@@ -26,6 +26,9 @@ DEVICE_MODEL = 5.10-android12
 # Marketing-friendly full-name. This will be used inside package descriptions
 DEVICE_FULL_NAME = Android Generic Kernel Image ($(DEVICE_MODEL))
 
+# Set to 1 if your device has an init_boot partition.
+DEVICE_HAS_INIT_BOOT = 1
+
 # Whether to use configuration fragments to augment the kernel configuration.
 # If unsure, keep this to 0.
 KERNEL_CONFIG_USE_FRAGMENTS = 1
