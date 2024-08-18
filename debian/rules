@@ -25,6 +25,13 @@ debian/control:
 			$${file} >> $(CURDIR)/debian/control ; \
 	done
 
+# On GKI, FORCE initramfs to be lz4 no matter what
+out/KERNEL_OBJ/initramfs.gz: out/KERNEL_OBJ/initramfs.lz4
+	cp -v $< $@
+
+out/KERNEL_OBJ/initramfs.recovery-gz: out/KERNEL_OBJ/initramfs.recovery-lz4
+	cp -v $< $@
+
 override_dh_auto_install: kernel_snippet_install out/KERNEL_OBJ/boot-gz.img out/KERNEL_OBJ/boot-lz4.img out/KERNEL_OBJ/boot-recovery-gz.img out/KERNEL_OBJ/boot-recovery-lz4.img
 	# Create package contents for other variants
 	cp -Rav $(CURDIR)/debian/linux-bootimage-$(KERNEL_RELEASE) $(CURDIR)/debian/linux-bootimage-$(KERNEL_RELEASE)-gzip
