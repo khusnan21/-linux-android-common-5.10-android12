@@ -8,7 +8,7 @@
 VARIANT = android
 
 # Kernel base version
-KERNEL_BASE_VERSION = $(VERSION).$(PATCHLEVEL).$(SUBLEVEL)-android12-11
+KERNEL_BASE_VERSION = $(VERSION).$(PATCHLEVEL).$(SUBLEVEL)-android12-9
 
 # The kernel cmdline to use
 KERNEL_BOOTIMAGE_CMDLINE = 
