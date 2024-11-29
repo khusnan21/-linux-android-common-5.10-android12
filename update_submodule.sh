@@ -19,7 +19,7 @@ if ! curl -L --silent --head --fail "${MAKEFILE}" &>/dev/null; then
 	exit 1
 fi
 
-git update-index --add --cacheinfo 160000,${1},android_kernel_common
+git update-index --add --cacheinfo 160000,${1},android_kernel_xiaomi_sm8450
 
 # Fetch kernel info
 cat > debian/android-kernel-info.mk <<EOF
