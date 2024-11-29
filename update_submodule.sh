@@ -12,7 +12,7 @@ usage() {
 
 [ -n "${1}" ] || usage
 
-MAKEFILE="https://raw.githubusercontent.com/droidian-devices/android_kernel_common/${1}/Makefile"
+MAKEFILE="https://raw.githubusercontent.com/xiaomi_diting_devs/android_kernel_xiaomi_sm8450/${1}/Makefile"
 
 if ! curl -L --silent --head --fail "${MAKEFILE}" &>/dev/null; then
 	echo "${1}: commit not found" >&2
